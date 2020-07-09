@@ -1,6 +1,8 @@
 package com.auction.test;
 
+import com.auction.dao.impl.GoodsDaoImpl;
 import com.auction.dao.impl.UserDaoImpl;
+import com.auction.domain.Goods;
 import com.auction.domain.User;
 import com.auction.utils.JDBCUtils;
 import org.junit.After;
@@ -9,6 +11,7 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class mainTest {
 
@@ -52,6 +55,15 @@ public class mainTest {
         UserDaoImpl userDao = new UserDaoImpl(connection);
         User aaa = userDao.login("aaa", "123");
         System.out.println(aaa);
+    }
+
+    @Test
+    public void testSelectGoods() throws Exception {
+        GoodsDaoImpl goodsDao = new GoodsDaoImpl(connection);
+        List<Goods> goods = goodsDao.selectAllGoods();
+        for (Goods good : goods) {
+            System.out.println(good);
+        }
     }
 }
 

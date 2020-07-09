@@ -24,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
         UserServiceImpl userService = new UserServiceImpl();
         int register = userService.register(user);
         req.getSession().setAttribute("user",user);
-        req.getRequestDispatcher("index.jsp").forward(req,resp);
+        req.getRequestDispatcher("index.html").forward(req,resp);
     }
 
     @Override

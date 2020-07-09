@@ -31,8 +31,8 @@ public class UserDaoImpl extends BaseDaoImpl implements IUserDao {
 
     @Override
     public User tableToClass(ResultSet rs) throws Exception {
-        User user = new User();
         if (rs.next()){
+            User user = new User();
             user.setId(rs.getInt(1));
             user.setUsername(rs.getString(2));
             user.setPassword(rs.getString(3));
@@ -40,7 +40,8 @@ public class UserDaoImpl extends BaseDaoImpl implements IUserDao {
             user.setPhone(rs.getString(5));
             user.setAddress(rs.getString(6));
             user.setAddressNum(rs.getInt(7));
+            return user;
         }
-        return user;
+        return null;
     }
 }
