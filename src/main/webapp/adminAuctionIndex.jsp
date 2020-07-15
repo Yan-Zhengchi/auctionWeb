@@ -25,9 +25,10 @@
         <%
             Admin admin = (Admin)request.getSession().getAttribute("admin");
             if (admin.getAdminName()!=null){
-                out.print("<div class=\"logout right\"style=\"width: 200px\">"+"欢迎您管理员："+admin.getAdminName()+"   <a href=\"#\" title=\"注销\">注销</a></div>");
+                out.print("<div class=\"logout right\"style=\"width: 200px\">"+"欢迎您管理员："+admin.getAdminName()+"   <a href=\"exitAdmin.do\" title=\"注销\">注销</a></div>");
             }else {
-                out.print("<div class=\"logout right\"><a href=\"adminLogin.html\" title=\"注销\">登录</a></div>");
+//                out.print("<div class=\"logout right\"><a href=\"adminLogin.html\" title=\"注销\">登录</a></div>");
+                response.sendRedirect("adminLogin.html");
             }
 
         %>

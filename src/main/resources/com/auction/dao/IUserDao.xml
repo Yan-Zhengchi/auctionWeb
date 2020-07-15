@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.auction.dao.IUserDao">
+    <update id="register" parameterType="com.auction.domain.User">
+        insert into user(username,password,identityCode,phone,address,addressNum)
+        values(#{username},#{password},#{identityCode},#{phone},#{address},#{addressNum});
+    </update>
+
+    <select id="login" resultType="com.auction.domain.User" parameterType="com.auction.domain.queryVo.LoginQueryVo">
+        select * from user where username = #{username} and password = #{password};
+    </select>
+
+</mapper>

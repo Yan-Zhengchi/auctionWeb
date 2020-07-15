@@ -22,6 +22,38 @@ public class GoodsDaoImpl extends BaseDaoImpl implements IGoodsDao {
     }
 
     @Override
+    public List<Goods> selectBySomething(String[] s) throws Exception {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("select * from goods where ");
+        if (s.length != 0) {
+
+            for (int i = 0; i < s.length-2; i+=2) {
+                stringBuffer.append(s[i]+"=? and ");
+            }
+            stringBuffer.append(s[s.length-2]+"=?;");
+            String sql = stringBuffer.toString();
+            List<Object> objectList = new ArrayList<>();
+            for (int i = 1; i < s.length; i+=2) {
+                objectList.add(s[i]);
+            }
+            Object[] objects = objectList.toArray();
+            ResultSet resultSet = executeQuery(sql, objects);
+            List<Goods> goods = tableToClass(resultSet);
+            return goods;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Goods> selectById(Integer id) throws Exception {
+        String sql = "select * from goods where id=?";
+        Object[] objects = {id};
+        ResultSet resultSet = executeQuery(sql, objects);
+        List<Goods> goods = tableToClass(resultSet);
+        return  goods;
+    }
+
+    @Override
     public List<Goods> tableToClass(ResultSet rs) throws Exception {
         ArrayList<Goods> goods = new ArrayList<>();
         while(rs.next()){

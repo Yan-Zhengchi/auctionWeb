@@ -26,7 +26,7 @@
         <%
             User admin = (User)request.getSession().getAttribute("user");
             if (admin.getUsername()!=null){
-                out.print("<div class=\"logout right\"style=\"width: 150px\">"+"欢迎您："+admin.getUsername()+"   <a href=\"#\" title=\"注销\">注销</a></div>");
+                out.print("<div class=\"logout right\"style=\"width: 150px\">"+"欢迎您："+admin.getUsername()+"   <a href=\"exit.do\" title=\"注销\">注销</a></div>");
             }else {
                 out.print("<div class=\"logout right\"><a href=\"adminLogin.html\" title=\"注销\">登录</a></div>");
             }
@@ -34,17 +34,19 @@
         %>
     </div>
     <div class="forms">
+        <form action="selectGoods.do" method="post">
         <label for="name">名称</label>
-        <input name="" type="text" class="nwinput" id="name"/>
+        <input  type="text" class="nwinput" id="name" name = "name"/>
         <label for="names">描述</label>
-        <input name="" type="text" id="names" class="nwinput"/>
+        <input  type="text" id="names" class="nwinput" name = "description"/>
         <label for="time">开始时间</label>
-        <input name="" type="text" id="time" class="nwinput"/>
+        <input  type="text" id="time" class="nwinput" name = "startTime"/>
         <label for="end-time">结束时间</label>
-        <input name="" type="text" id="end-time" class="nwinput" />
+        <input  type="text" id="end-time" class="nwinput" name = "endTime" />
         <label for="price">起拍价</label>
-        <input name="" type="text" id="price" class="nwinput" />
-        <input name="" type="button"  value="查询" class="spbg buttombg f14  sale-buttom"/>
+        <input  type="text" id="price" class="nwinput" name = "startPrice"/>
+        <input  type="submit"  value="查询" class="spbg buttombg f14  sale-buttom"/>
+        </form>
     </div>
     <div class="items">
         <ul class="rows even strong">
@@ -56,7 +58,12 @@
             <li class="borderno">操作</li>
         </ul>
         <%
-            List<Goods> goods = (List<Goods>)request.getSession().getAttribute("goods");
+            List<Goods> goods = null;
+            if (request.getAttribute("goodsAreSelected")!=null){
+                 goods = (List<Goods>) request.getAttribute("goodsAreSelected");
+            }else{
+                goods = (List<Goods>)request.getSession().getAttribute("goods");
+            }
             int i = 0;
             for (Goods good : goods) {
                 if(i%2==0){
@@ -66,7 +73,7 @@
                             "            <li>"+good.getStartTime()+"</li>\n" +
                             "            <li>"+good.getEndTime()+"</li>\n" +
                             "            <li>"+good.getStartPrice()+"</li>\n" +
-                            "            <li class=\"borderno red\"><a href=\"auction.jsp?goodsId = "+good.getId()+"\">竞拍</a></li>\n" +
+                            "            <li class=\"borderno red\"><a href=\"auction.do?goodsId="+good.getId()+"\">竞拍</a></li>\n" +
                             "        </ul>");
                 }else{
                     out.print("<ul class=\"rows even\">\n" +
@@ -75,7 +82,7 @@
                             "            <li>"+good.getStartTime()+"</li>\n" +
                             "            <li>"+good.getEndTime()+"</li>\n" +
                             "            <li>"+good.getStartPrice()+"</li>\n" +
-                            "            <li class=\"borderno red\"><a href=\"auction.jsp?goodsId="+good.getId()+"\">竞拍</a></li>\n" +
+                            "            <li class=\"borderno red\"><a href=\"auction.do?goodsId="+good.getId()+"\">竞拍</a></li>\n" +
                             "        </ul>");
                 }
                 i++;

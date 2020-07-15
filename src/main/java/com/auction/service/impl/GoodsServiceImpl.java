@@ -27,4 +27,42 @@ public class GoodsServiceImpl implements IGoodsService {
         }
         return goods;
     }
+
+    @Override
+    public List<Goods> selectBySomething(String s)   {
+        String[] split = s.split(",");
+        try {
+            GoodsDaoImpl goodsDao = new GoodsDaoImpl(JDBCUtils.getConnection());
+            List<Goods> goods = goodsDao.selectBySomething(split);
+            return goods;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Goods selectById(Integer id) {
+        GoodsDaoImpl goodsDao = null;
+        try {
+            goodsDao = new GoodsDaoImpl(JDBCUtils.getConnection());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        List<Goods> goods = null;
+        try {
+            goods = goodsDao.selectById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Goods good = goods.get(0);
+        return good;
+    }
 }

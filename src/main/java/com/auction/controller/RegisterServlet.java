@@ -14,6 +14,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         User user = new User();
         user.setUsername(req.getParameter("username"));
         user.setPassword(req.getParameter("password"));
